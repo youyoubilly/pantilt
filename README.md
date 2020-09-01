@@ -22,6 +22,7 @@ It would be **appreciated** if you can share your own stl design of different pa
 Enjoy!
 
 Billy Wang
+
 BillioTech
 
 ----------------
@@ -45,5 +46,6 @@ BillioTech
 有什么问题，在issues那发布出来讨论吧！
 
 Billy Wang
-BillioTech比利奥科技
+
+BillioTech 比利奥科技
 
