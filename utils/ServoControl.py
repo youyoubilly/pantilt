@@ -2,7 +2,7 @@ from __future__ import division
 import time
 import Adafruit_PCA9685
 
-class PanTilt():
+class ServoCtrl():
     def __init__(self, channel, set_bus=0, max_angle=180, min_angle=0):
         self.set_bus = set_bus
         self.pwm = Adafruit_PCA9685.PCA9685(busnum=self.set_bus)
