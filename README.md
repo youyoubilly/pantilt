@@ -9,6 +9,8 @@ The jupyter notebook file, [**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb), can 
 ![pan_tilt](http://res.makeronsite.com/billiocar/servo_pan_tilt.png)
 ![stl](http://res.makeronsite.com/billiocar/stl.png)
 
+If you find an issue, please [let us know](../..//issues)!
+
 You are welcome to download the stl file I designed for the simple pan tilt of CSI camera, and 3D print it out.
 
 It can used for Jetson nao or Raspberry Pi.
@@ -20,6 +22,7 @@ It would be **appreciated** if you can share your own stl design of different pa
 Enjoy!
 
 Billy Wang
+BillioTech
 
 ----------------
 
@@ -42,4 +45,5 @@ Billy Wang
 有什么问题，在issues那发布出来讨论吧！
 
 Billy Wang
+BillioTech比利奥科技
 
