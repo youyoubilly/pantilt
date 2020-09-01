@@ -9,7 +9,7 @@ This is a tool kit for controlling two servos at a simple pan tilt or more servo
 
 ### Quick Guide
 ```python
-from utils.ServoControl import ServoCtrl
+from utils.servoctrl import ServoCtrl
 s1 = ServoCtrl(channel=14, set_bus=0, max_angle=180, min_angle=0)
 ```
 
