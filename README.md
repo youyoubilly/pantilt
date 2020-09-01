@@ -16,7 +16,7 @@ s1 = ServoCtrl(channel=14, set_bus=0, max_angle=180, min_angle=0)
 `channel` is number that servo has connected to PCA9685 board; \
 `set_bus` can be 0 or 1 or even 2; \
 `max_angle` is upper limit we set for servo; \
-`min_angle` is lower limit we set for servo. \
+`min_angle` is lower limit we set for servo. 
 
 ```python
 s1.to_angle(45)
@@ -29,11 +29,11 @@ s1.angle
 s1.angle_unit = 30
 ```
 
-`.to_angle` will turn to a angle;
-`.reset` will turn servo back to the default angle, which is (max_angle+min_angle)/2 as default;
-`.add` changes the servo by adding one unit of angle by this call, which is **10** degree as default;
-`.sub` changes the servo by subtracting one unit of angle;
-`.angle` can read the current angle;
+`.to_angle` will turn to a angle; \
+`.reset` will turn servo back to the default angle, which is (max_angle+min_angle)/2 as default; \
+`.add` changes the servo by adding one unit of angle by this call, which is **10** degree as default; \
+`.sub` changes the servo by subtracting one unit of angle; \
+`.angle` can read the current angle; \
 
 An assignment to `.reset_angle` will reset the default angle for the servo reseting;
 An assignment to `.angle_unit` will change one unit of changing angle degree.
@@ -78,14 +78,14 @@ BillioTech
 `max_angle` 设置舵机最高可转的度数; \
 `min_angle` 设置舵机最低可转的度数. \
 
-`.to_angle` 转到指定角度;
-`.reset` 回归重置角度，默认重置角度是(max_angle+min_angle)/2;
-`.add` 增加一个单位角度，默认单位角度为 **10** ;
-`.sub` 减少一个单位角度;
-`.angle` 读取当前角度位置;
+`.to_angle` 转到指定角度; \
+`.reset` 回归重置角度，默认重置角度是(max_angle+min_angle)/2; \
+`.add` 增加一个单位角度，默认单位角度为 **10** ; \
+`.sub` 减少一个单位角度; \
+`.angle` 读取当前角度位置; \
 
-赋值`.reset_angle`可改变重置角度；
-赋值`.angle_unit`可改变转动一个单位的角度。
+赋值`.reset_angle`可改变重置角度；\
+赋值`.angle_unit`可改变转动一个单位的角度。\
 
 ### STL 3D模型
 
