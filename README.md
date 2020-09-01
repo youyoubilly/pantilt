@@ -6,8 +6,8 @@ This is a tool kit for controlling two servos at a simple pan tilt or more servo
 
 The jupyter notebook file, [**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb), can give you a quick guide to use this tool kit.
 
-![servo_pan_tilt](/doc/servo_pan_tilt.png)
-![stl](/doc/stl.png)
+![pan_tilt](http://res.makeronsite.com/billiocar/servo_pan_tilt.png)
+![stl](http://res.makeronsite.com/billiocar/stl.png)
 
 You are welcome to download the stl file I designed for the simple pan tilt of CSI camera, and 3D print it out.
 
