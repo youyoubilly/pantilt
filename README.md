@@ -1,5 +1,7 @@
 # Servo_Pan_Tilt
 
+![pan_tilt_gif](http://res.makeronsite.com/billiocar/servo_pan_tilt.gif)
+
 This is a tool kit for controlling two servos at a simple pan tilt or more servos if you like.
 
 The jupyter notebook file, [**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb), can give you a quick guide to use this tool kit.
@@ -22,7 +24,10 @@ Billy Wang
 ----------------
 
 # 舵机云台控制
+
 这是可以控制两舵机云台的小工具。
+
+国内小伙伴可以进入此[**传送门**](https://gitee.com/billio/servo_pan_tilt)
 
 打开此文件[**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb)有简单指引如何使用此工具。
 
