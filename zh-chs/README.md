@@ -1,53 +1,6 @@
 # pantilt 舵机云台控制
 
-这是工具包可以
-1) 基于Python控制舵机；
-2) 驱动基于英伟达Jetson系列板子的摄像头云台
-
-国内小伙伴可以进入此[**Gitee传送门**](https://gitee.com/billio/servo_pan_tilt)
-
-打开此文件[**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb)有简单指引如何使用此工具。
-
-### - 简单说明：
-__*`channel`*__ 是舵机连接PCA9685的信号编号; \
-__*`bus`*__ 可以是0或1或2; \
-__*`max_angle`*__ 设置舵机最高可转的度数; \
-__*`min_angle`*__ 设置舵机最低可转的度数。
-
-__*`.to_angle`*__ 转到指定角度; \
-__*`.reset`*__ 回归重置角度，默认重置角度是(max_angle+min_angle)/2; \
-__*`.add`*__ 增加一个单位角度，默认单位角度为 **10** ; \
-__*`.sub`*__ 减少一个单位角度; \
-__*`.angle`*__ 读取当前角度位置;
-
-赋值 __*`.reset_angle`*__ 可改变重置角度；\
-赋值 __*`.angle_unit`*__ 可改变转动一个单位的角度。
-
-### - STL 3D模型
-
-欢迎下载我设计的此简单舵机云台，然后3D打印出来使用。
-
-此云台可以用于Jetson Nano或树莓派。
-
-你可以随意修改此模型用于其他目的。
-
-当然，如果你也能分享你自己设计的云台stl模型，那就太好了！
-
-### - 备注
-
-有什么问题，在issues那发布出来讨论吧！
-
-Billy Wang
-
-BillioTech Team
-比利奥
-
-
-
-# pantilt
-
 ![](http://res.makeronsite.com/billiocar/pantilt.gif)
-
 
 这是工具包可以
 1) 基于Python，方便控制舵机；
