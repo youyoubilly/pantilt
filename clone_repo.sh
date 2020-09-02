@@ -5,4 +5,4 @@ set -e
 
 echo "Cloning repositories we need for this project to utils"
 cd utils
-git clone https://github.com/youyoubilly/jetcam_b.git
+git clone https://github.com/youyoubilly/bcam.git

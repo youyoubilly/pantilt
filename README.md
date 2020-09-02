@@ -11,12 +11,12 @@ This is a tool kit containing Python utils
 
 ### Quick Guide
 ```python
-from utils.servoctrl import ServoCtrl
-s1 = ServoCtrl(channel=14, set_bus=0, max_angle=180, min_angle=0)
+from utils.servoctrl import Servo
+s1 = Servo(channel=14, bus=0, max_angle=180, min_angle=0)
 ```
 
 __*`channel`*__ is number that servo has connected to PCA9685 board; \
-__*`set_bus`*__ can be 0 or 1 or even 2; \
+__*`bus`*__ can be 0 or 1 or even 2; \
 __*`max_angle`*__ is upper limit we set for servo; \
 __*`min_angle`*__ is lower limit we set for servo. 
 
@@ -62,7 +62,7 @@ Enjoy!
 
 Billy Wang
 
-BillioTech
+BillioTech Team
 
 ----------------
 
@@ -78,7 +78,7 @@ BillioTech
 
 ### - 简单说明：
 __*`channel`*__ 是舵机连接PCA9685的信号编号; \
-__*`set_bus`*__ 可以是0或1或2; \
+__*`bus`*__ 可以是0或1或2; \
 __*`max_angle`*__ 设置舵机最高可转的度数; \
 __*`min_angle`*__ 设置舵机最低可转的度数。
 
@@ -107,5 +107,6 @@ __*`.angle`*__ 读取当前角度位置;
 
 Billy Wang
 
-BillioTech 比利奥科技
+BillioTech Team
+比利奥
 

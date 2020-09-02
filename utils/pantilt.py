@@ -1,7 +1,7 @@
 from __future__ import division
 import time
 import Adafruit_PCA9685
-from servoctrl import ServoCtrl
+from servoctrl import Servo
 
-class PanTiltCtrl():
+class PanTilt():
     
