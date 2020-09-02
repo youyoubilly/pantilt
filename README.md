@@ -2,7 +2,9 @@
 
 ![](http://res.makeronsite.com/billiocar/pantilt.gif)
 
-This is a tool kit containing Python utils for controlling servos and for driving a CSI camera at a two-servos pan tilt.
+This is a tool kit containing Python utils 
+1) for controlling servos, and 
+2) for driving camera based on Nvidia Jetson boards at a two-servos pan tilt.
 
 ![pan_tilt](http://res.makeronsite.com/billiocar/servo_pan_tilt.png)
 ![stl](http://res.makeronsite.com/billiocar/stl.png)
@@ -66,9 +68,11 @@ BillioTech
 
 # - 舵机云台控制
 
-这是可以控制两舵机云台的小工具。
+这是工具包可以
+1) 基于Python控制舵机；
+2) 驱动基于英伟达Jetson系列板子的摄像头云台
 
-国内小伙伴可以进入此[**传送门**](https://gitee.com/billio/servo_pan_tilt)
+国内小伙伴可以进入此[**Gitee传送门**](https://gitee.com/billio/servo_pan_tilt)
 
 打开此文件[**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb)有简单指引如何使用此工具。
 
