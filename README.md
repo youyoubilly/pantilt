@@ -9,104 +9,79 @@ This is a tool kit containing Python utils
 ![pan_tilt](http://res.makeronsite.com/billiocar/servo_pan_tilt.png)
 ![stl](http://res.makeronsite.com/billiocar/stl.png)
 
-### Quick Guide
+## Quick Guide
+### 1. To Initiate a Servo
 ```python
 from utils.servoctrl import Servo
 s1 = Servo(channel=14, bus=0, max_angle=180, min_angle=0)
 ```
+`channel` is number that servo has connected to PCA9685 board; \
+`bus` can be 0 or 1 or even 2; \
+`max_angle` `min_angle` is upper and lower limit we set for the servo.
 
-__*`channel`*__ is number that servo has connected to PCA9685 board; \
-__*`bus`*__ can be 0 or 1 or even 2; \
-__*`max_angle`*__ is upper limit we set for servo; \
-__*`min_angle`*__ is lower limit we set for servo. 
 
 ```python
 s1.to_angle(45)
 s1.reset()
-s1.reset_angle = 0
-s1.reset()
+s1.change_reset(0)
 s1.add()
-s1.sub()
-s1.angle
-s1.angle_unit = 30
+s1.sub(3)
+s1.read()
+s1.change_unit(30)
+s1.to_min()
+s1.to_max()
 ```
 
-__*`.to_angle`*__ will turn to a angle; \
-__*`.reset`*__ will turn servo back to the default angle, which is (max_angle+min_angle)/2 as default; \
-__*`.add`*__ changes the servo by adding one unit of angle by this call, which is **10** degree as default; \
-__*`.sub`*__ changes the servo by subtracting one unit of angle; \
-__*`.angle`*__ can read the current angle;
+__*`.to_angle()`*__ will turn to a angle; \
+__*`.reset()`*__ will turn servo back to the default angle, which is (max_angle+min_angle)/2 as default; \
+__*`.change_reset()`*__ This will change the default reset angle to input number. \
+Leaving bracket blank as `.change_reset()` will apply the current angle.
 
-An assignment to `.reset_angle` will reset the default angle for the servo reseting;
-An assignment to `.angle_unit` will change one unit of changing angle degree.
+__*`.add()`*__ changes the servo by adding one unit of angle, which is 10 degree as default. \
+__*`.sub()`*__ changes the servo by subtracting one unit of angle; \
+An integer in its bracket means how many unit it will act on. \
+__*`.change_unit()`*__ will change how many degree it turn for one unit.
 
-You can open a jupyter notebook file, [**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb), to have a try on this tool kit.
+__*`.read()`*__ can read the current angle of the servo. \
+This function won't work properly and return *None* at the initial status until it has made one move. \
 
-### STL 3D Model
+__*`.to_min()`*__ will turn to the minimum angle. \
+__*`.to_max()`*__ will turn to the maximum angle.
 
-You are welcome to download the stl file I designed for the simple pan tilt of CSI camera, and 3D print it out.
+You can open a jupyter notebook file, [**servo_demo.ipynb**](/servo_demo.ipynb), to have a try on this tool kit.
 
-It can used for Jetson nao or Raspberry Pi.
+### 2. To Initiate a Pan Tilt
+Its methods to control two servos at a pan tilt is similar to control a servo, here is a jupyter notebook file [**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb)
 
-You may adjust the stl model for different use.
+### 3. Camera Pan Tilt
+This is a work still in progress...
 
-It would be **appreciated** if you can share your own stl design of pan tilt as well if you have one! 
+## Install
+This is a work still in progress...
 
-### Note
+## STL 3D Model
+
+You are welcome to download the stl file I designed for the simple pan tilt of CSI camera, and 3D print it out. \
+It can used for Jetson nao or Raspberry Pi. \
+You may adjust the stl model for different use.\
+
+If you have other stl designs of pan tilt for sharing, it would be appreciated! \
+I will add it to stl folder as well.
+
+## Other Languages
+English document is available here: [**GitHub - pantilt**](https://github.com/youyoubilly/pantilt) \
+Chinese document is available here: [**中文文档传送门**](/zh-chs/README.md) 国内仓库：[**Gitee传送门**](https://gitee.com/billio/servo_pan_tilt) \
+
+It would be **appreciated** if you can contribute to write this document in other languages!
+
+## Note
 
 If you find an issue, please [let us know](../..//issues)!
 
-Sorry that I may have some typos in this this repo.
+Sorry that I may have some typos or inaccurate expression in English, help me to correct them if you found one! Big Thanks!
 
 Enjoy!
 
-Billy Wang
-
+Billy Wang \
 BillioTech Team
-
-----------------
-
-# - 舵机云台控制
-
-这是工具包可以
-1) 基于Python控制舵机；
-2) 驱动基于英伟达Jetson系列板子的摄像头云台
-
-国内小伙伴可以进入此[**Gitee传送门**](https://gitee.com/billio/servo_pan_tilt)
-
-打开此文件[**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb)有简单指引如何使用此工具。
-
-### - 简单说明：
-__*`channel`*__ 是舵机连接PCA9685的信号编号; \
-__*`bus`*__ 可以是0或1或2; \
-__*`max_angle`*__ 设置舵机最高可转的度数; \
-__*`min_angle`*__ 设置舵机最低可转的度数。
-
-__*`.to_angle`*__ 转到指定角度; \
-__*`.reset`*__ 回归重置角度，默认重置角度是(max_angle+min_angle)/2; \
-__*`.add`*__ 增加一个单位角度，默认单位角度为 **10** ; \
-__*`.sub`*__ 减少一个单位角度; \
-__*`.angle`*__ 读取当前角度位置;
-
-赋值 __*`.reset_angle`*__ 可改变重置角度；\
-赋值 __*`.angle_unit`*__ 可改变转动一个单位的角度。
-
-### - STL 3D模型
-
-欢迎下载我设计的此简单舵机云台，然后3D打印出来使用。
-
-此云台可以用于Jetson Nano或树莓派。
-
-你可以随意修改此模型用于其他目的。
-
-当然，如果你也能分享你自己设计的云台stl模型，那就太好了！
-
-### - 备注
-
-有什么问题，在issues那发布出来讨论吧！
-
-Billy Wang
-
-BillioTech Team
-比利奥
 
