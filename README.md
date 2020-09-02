@@ -51,7 +51,8 @@ __*`.to_max()`*__ will turn to the maximum angle.
 You can open a jupyter notebook file, [**servo_demo.ipynb**](/servo_demo.ipynb), to have a try on this tool kit.
 
 ### 2. To Initiate a Pan Tilt
-Its methods to control two servos at a pan tilt is similar to control a servo, here is a jupyter notebook file [**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb)
+Methods to control two servos at a pan tilt is similar to control a servo. \
+Have a try here: [**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb)
 
 ### 3. Camera Pan Tilt
 This is a work still in progress...
@@ -63,14 +64,14 @@ This is a work still in progress...
 
 You are welcome to download the stl file I designed for the simple pan tilt of CSI camera, and 3D print it out. \
 It can used for Jetson nao or Raspberry Pi. \
-You may adjust the stl model for different use.\
+You may adjust the stl model for different use.
 
 If you have other stl designs of pan tilt for sharing, it would be appreciated! \
 I will add it to stl folder as well.
 
 ## Other Languages
 English document is available here: [**GitHub - pantilt**](https://github.com/youyoubilly/pantilt) \
-Chinese document is available here: [**中文文档传送门**](/zh-chs/README.md) 国内仓库：[**Gitee传送门**](https://gitee.com/billio/servo_pan_tilt) \
+Chinese document is available here: [**中文文档传送门**](/zh-chs/README.md) 国内仓库：[**Gitee传送门**](https://gitee.com/billio/servo_pan_tilt)
 
 It would be **appreciated** if you can contribute to write this document in other languages!
 
@@ -78,7 +79,8 @@ It would be **appreciated** if you can contribute to write this document in othe
 
 If you find an issue, please [let us know](../..//issues)!
 
-Sorry that I may have some typos or inaccurate expression in English, help me to correct them if you found one! Big Thanks!
+Sorry that I may have some typos or inaccurate expression in English, help me to correct them if you found one! \
+Big Thanks!
 
 Enjoy!
 
