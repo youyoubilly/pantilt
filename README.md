@@ -1,8 +1,8 @@
-# Servo_Pan_Tilt
+# pantilt
 
 ![](http://res.makeronsite.com/billiocar/pantilt.gif)
 
-This is a tool kit for controlling two servos at a simple pan tilt or more servos if you like.
+This is a tool kit containing Python utils for controlling servos and for driving a CSI camera at a two-servos pan tilt.
 
 ![pan_tilt](http://res.makeronsite.com/billiocar/servo_pan_tilt.png)
 ![stl](http://res.makeronsite.com/billiocar/stl.png)
