@@ -6,11 +6,6 @@ This is a tool kit containing Python utils
 
 ![](http://res.makeronsite.com/billiocar/pantilt.gif)
 
-![](http://res.makeronsite.com/billiocar/demo2.gif)
-
-![](http://res.makeronsite.com/billiocar/demo3.gif)
-
-
 ## Quick Guide
 ### 1. To Initiate a Servo
 ```python
@@ -51,9 +46,15 @@ __*`.to_max()`*__ will turn to the maximum angle.
 You can open a jupyter notebook file, [**servo_demo.ipynb**](/servo_demo.ipynb), to have a try on this tool kit.
 
 ### 2. To Initiate a Pan Tilt
+
+![](http://res.makeronsite.com/billiocar/demo2.gif)
+
 Its methods to control two servos at a pan tilt is similar to control a servo, here is a jupyter notebook file [**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb)
 
 ### 3. Camera Pan Tilt
+
+![](http://res.makeronsite.com/billiocar/demo3.gif)
+
 Walkthrough is here [**cam_pan_tilt_demo.ipynb**](/cam_pan_tilt_demo.ipynb)
 
 ## Install
