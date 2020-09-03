@@ -43,8 +43,6 @@ An integer in its bracket means how many unit it will act on. \
 __*`.change_unit()`*__ will change how many degree it turn for one unit.
 
 __*`.read()`*__ can read the current angle of the servo. \
-This function won't work properly and return *None* at the initial status until it has made one move. \
-
 __*`.to_min()`*__ will turn to the minimum angle. \
 __*`.to_max()`*__ will turn to the maximum angle.
 

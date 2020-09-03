@@ -10,7 +10,7 @@ class Servo():
         self.channel = channel
         self.max_angle = max_angle
         self.min_angle = min_angle
-        self.angle = None
+        self.angle = int((max_angle + min_angle)/2)
         self.reset_angle = int((max_angle + min_angle)/2)
         self.unit = 10
        
@@ -88,17 +88,37 @@ class PanTilt():
     def go_down(self, t=1):
         self.ud.add(t)
         
+    def go_up_left(self, t=1):
+        self.ud.sub(t)
+        self.rl.add(t)
+        
+    def go_up_right(self, t=1):
+        self.ud.sub(t)
+        self.rl.sub(t)
+        
+    def go_down_left(self, t=1):
+        self.ud.add(t)
+        self.rl.add(t)
+        
+    def go_down_right(self, t=1):
+        self.ud.add(t)
+        self.rl.sub(t)
+        
     def far_left(self):
         self.rl.to_max()
+        self.ud.to_angle(int((self.ud.max_angle + self.ud.min_angle)/2))
 
     def far_right(self):
         self.rl.to_min()
+        self.ud.to_angle(int((self.ud.max_angle + self.ud.min_angle)/2))
 
     def far_up(self):
         self.ud.to_min()
+        self.rl.to_angle(int((self.rl.max_angle + self.rl.min_angle)/2))
         
     def far_down(self):
         self.ud.to_max()
+        self.rl.to_angle(int((self.rl.max_angle + self.rl.min_angle)/2))
 
     def upper_left(self):
         self.ud.to_min()
