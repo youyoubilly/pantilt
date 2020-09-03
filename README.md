@@ -3,11 +3,8 @@
 ![](http://res.makeronsite.com/billiocar/pantilt.gif)
 
 This is a tool kit containing Python utils 
-1) for controlling servos, and 
-2) for driving camera based on Nvidia Jetson boards at a two-servos pan tilt.
-
-![pan_tilt](http://res.makeronsite.com/billiocar/servo_pan_tilt.png)
-![stl](http://res.makeronsite.com/billiocar/stl.png)
+1) for driving servos, \
+2) for controlling camera at a two-servos pan tilt by widgets in jupyter notebook and a PS4 Joystick.
 
 ## Quick Guide
 ### 1. To Initiate a Servo
@@ -49,15 +46,20 @@ __*`.to_max()`*__ will turn to the maximum angle.
 You can open a jupyter notebook file, [**servo_demo.ipynb**](/servo_demo.ipynb), to have a try on this tool kit.
 
 ### 2. To Initiate a Pan Tilt
+![](http://res.makeronsite.com/billiocar/demo2.gif)
 Its methods to control two servos at a pan tilt is similar to control a servo, here is a jupyter notebook file [**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb)
 
 ### 3. Camera Pan Tilt
-This is a work still in progress...
+![](http://res.makeronsite.com/billiocar/demo3.gif)
+Walkthrough is here [**cam_pan_tilt_demo.ipynb**](/cam_pan_tilt_demo.ipynb)
 
 ## Install
 This is a work still in progress...
 
 ## STL 3D Model
+
+![pan_tilt](http://res.makeronsite.com/billiocar/servo_pan_tilt.png)
+![stl](http://res.makeronsite.com/billiocar/stl.png)
 
 You are welcome to download the stl file I designed for this simple pan tilt of CSI camera, and 3D print it out. \
 You may adjust the stl model for different use.\
@@ -71,7 +73,13 @@ Chinese document is available here: [**中文传送门**](/zh-chs/README.md); �
 
 It would be **appreciated** if you can contribute to write this document in other languages!
 
-## Note
+## Donate
+
+This project is developed on a non-commercial basis by Open Source enthusiasts. \
+If you find __*pantilt*__ useful, you can support the lead developer by donating a few dollars via [PayPal](https://www.paypal.com/paypalme/BillyYBWang).
+With this money, we will be able to buy new hardware to test and do more such project for open source and for free education, and generally devote significantly more time to these projects.
+
+## Notes
 
 If you find an issue, please [let us know](../..//issues)!
 
