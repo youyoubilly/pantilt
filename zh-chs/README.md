@@ -2,8 +2,8 @@
 
 ![](http://res.makeronsite.com/billiocar/pantilt.gif)
 
-这是工具包可以 \
-1) 基于Python，控制舵机；\
+这是工具包可以
+1) 基于Python，控制舵机；
 2) 基于Jupyter Notebook页面插件, 控制一个两舵机摄像头云台。
 
 ## 简单说明
@@ -67,13 +67,13 @@ __*`.to_max()`*__ 移动到最小值角度
 欢迎下载我设计好的模型，然后3D打印出来吧。\
 你可以随意根据需要修改模型。
 
-如果你也能共享你的设计文件到项目，那就太好了！\
+如果你也能共享你的设计文件到项目，那就太好了！
 
 ## 其他语言
 英文文档[**GitHub - pantilt**](https://github.com/youyoubilly/pantilt) \
 中文文档[**中文传送门**](/zh-chs/README.md); 国内仓库：[**Gitee传送门**](https://gitee.com/billio/servo_pan_tilt)
 
-如果你能帮忙将此项目翻译成其他语言，那就感谢啦！\
+如果你能帮忙将此项目翻译成其他语言，那就感谢啦
 
 ## 支持
 此项目是非商业的，是由一个热衷于开源，希望更多人都能通过此项目共同成长，的团队发起。\
