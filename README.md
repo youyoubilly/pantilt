@@ -1,12 +1,15 @@
 # pantilt
 
 This is a tool kit containing Python utils 
-1) for driving servos, \
+1) for driving servos,
 2) for controlling camera at a two-servos pan tilt by widgets in jupyter notebook and a PS4 Joystick.
 
 ![](http://res.makeronsite.com/billiocar/pantilt.gif)
+
 ![](http://res.makeronsite.com/billiocar/demo2.gif)
+
 ![](http://res.makeronsite.com/billiocar/demo3.gif)
+
 
 ## Quick Guide
 ### 1. To Initiate a Servo
