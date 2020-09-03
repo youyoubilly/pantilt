@@ -1,0 +1,3 @@
+[submodule "bcam"]
+	path = bcam
+	url = https://github.com/youyoubilly/bcam
