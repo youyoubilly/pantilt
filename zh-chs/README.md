@@ -47,11 +47,13 @@ __*`.to_max()`*__ 移动到最小值角度
 
 ### 2. 控制云台
 ![](http://res.makeronsite.com/billiocar/demo2.gif)
+
 控制云台两个舵机的方法与控制一个舵机相似。\
 打开此jupyter notebook文件 [**pan_tilt_demo.ipynb**](/pan_tilt_demo.ipynb)试试吧！
 
 ### 3. 摄像头云台
 ![](http://res.makeronsite.com/billiocar/demo3.gif)
+
 详细教程在此传送门：[**cam_pan_tilt_demo.ipynb**](/cam_pan_tilt_demo.ipynb)
 
 ## 前期安装
