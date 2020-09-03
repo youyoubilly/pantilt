@@ -1,3 +1,7 @@
+[*中文文档*](/zh-chs/README.md)
+
+
+
 # pantilt
 
 This is a tool kit containing Python utils 
@@ -66,7 +70,7 @@ This is a work still in progress...
 ![stl](http://res.makeronsite.com/billiocar/stl.png)
 
 You are welcome to download the stl file I designed for this simple pan tilt of CSI camera, and 3D print it out. \
-You may adjust the stl model for different use.\
+You may adjust the stl model for different use.
 
 It would be appreciated if you can share your stl design of a different pan tilt as well! \
 I will add it to stl folder if you have one to share.
