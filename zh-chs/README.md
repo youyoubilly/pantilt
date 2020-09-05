@@ -9,7 +9,7 @@
 ## 简单说明
 ### 1. 控制舵机
 ```python
-from utils.servoctrl import Servo
+from pantilt import Servo
 s1 = Servo(channel=14, bus=0, max_angle=180, min_angle=0)
 ```
 `channel` 是舵机连接PCA9685的信号编号; \

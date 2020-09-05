@@ -13,7 +13,7 @@ This is a tool kit containing Python utils
 ## Quick Guide
 ### 1. To Initiate a Servo
 ```python
-from utils.servoctrl import Servo
+from pantilt import Servo
 s1 = Servo(channel=14, bus=0, max_angle=180, min_angle=0)
 ```
 `channel` is number that servo has connected to PCA9685 board; \
