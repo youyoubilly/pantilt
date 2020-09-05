@@ -81,9 +81,6 @@ git clone --recurse-submodules  https://github.com/youyoubilly/pantilt.git
 You are welcome to download the stl file I designed for this simple pan tilt of CSI camera, and 3D print it out. \
 You may adjust the stl model for different use.
 
-It would be appreciated if you can share your stl design of a different pan tilt as well! \
-I will add it to stl folder if you have one to share.
-
 ## Other Languages
 English document is available here: [**GitHub - pantilt**](https://github.com/youyoubilly/pantilt) \
 Chinese document is available here: [**中文传送门**](/zh-chs/README.md); 国内仓库：[**Gitee传送门**](https://gitee.com/billio/servo_pan_tilt)
