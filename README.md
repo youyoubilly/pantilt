@@ -62,7 +62,16 @@ Its methods to control two servos at a pan tilt is similar to control a servo, h
 Walkthrough is here [**cam_pan_tilt_demo.ipynb**](/cam_pan_tilt_demo.ipynb)
 
 ## Install
-This is a work still in progress...
+
+1. Clone the project, please rememeber to clone with parameter —recurse-submodules, because pantilt project referene another submodule [bcam](https://github.com/youyoubilly/bcam/).
+
+```
+git clone --recurse-submodules  https://github.com/youyoubilly/pantilt.git
+```
+
+2. Install pantilt
+
+
 
 ## STL 3D Model
 
