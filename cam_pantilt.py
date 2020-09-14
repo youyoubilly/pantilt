@@ -4,33 +4,31 @@ import time
 import numpy as np
 
 from bcam.bcam import Camera, frame_dp, bgr8_to_jpeg
-from pantilt import PanTilt
+from pantilt.pantilt import PanTilt
 import ipywidgets.widgets as widgets
 from ipywidgets import Button, HBox, VBox
 import os
 
 class CamPanTilt():
     def __init__(self):
-        self.width_cap = 800
-        self.height_cap = 600
-        self.fps_cap = 2
-        self.resize = 0.5
-        self.width_dp = self.width_cap * self.resize
-        self.height_dp = self.height_cap * self.resize
         self.pt = PanTilt(bus=0)
         self.pt.add_rl_servo(channel=14, max_angle=180, min_angle=0)
         self.pt.add_ud_servo(channel=15, max_angle=180, min_angle=0)
-        self.snap_dir = 'snap'
+        self.width_dp = 320
+        self.height_dp = 240
         self.image_widget = widgets.Image(format='jpeg', width=self.width_dp, height=self.height_dp)
         self.snap_count = widgets.IntText(description='count:', layout=widgets.Layout(width='140px'), value=0)
         self.rl_textbox = widgets.IntText(layout=widgets.Layout(width='148px'), value=self.pt.read()[0], description='rl:')
         self.ud_textbox = widgets.IntText(layout=widgets.Layout(width='148px'), value=self.pt.read()[1], description='ud:')
         self.rl_slider = widgets.FloatSlider(min=-1, max=1, value=0, step=0.02, description='rl')
-        self.ud_slider = widgets.FloatSlider(min=-1, max=1, value=0, step=0.02, description='ud')        
+        self.ud_slider = widgets.FloatSlider(min=-1, max=1, value=0, step=0.02, description='ud')
+        self.snap_dir = 'snap'
+        self.camera_link = None
+        self.controller = None
         
-    def cam(self):
-        camera = Camera(width=self.width_cap, height=self.height_cap, fps=self.fps_cap, is_usb=False, flip=2)
-        camera_link = traitlets.dlink((camera, 'value'), (self.image_widget, 'value'), transform=frame_dp)
+    def cam(self, width_cap=800, height_cap=600, fps_cap=2, flip=2):
+        camera = Camera(width=width_cap, height=height_cap, fps=fps_cap, is_usb=False, flip=flip)
+        self.camera_link = traitlets.dlink((camera, 'value'), (self.image_widget, 'value'), transform=frame_dp)
         return self.image_widget
 
     def _rl_val(self, val):
@@ -114,7 +112,7 @@ class CamPanTilt():
         
         return HBox([com_a, com_b])
         
-    def _save_snap(self):
+    def save_snap(self):
         try:
             os.makedirs(self.snap_dir)
         except FileExistsError:
@@ -139,7 +137,7 @@ class CamPanTilt():
         func_items[1].button_style='info'
         func_items[2].button_style=''
         
-        func_items[0].on_click(lambda x: self._save_snap())
+        func_items[0].on_click(lambda x: self.save_snap())
         func_items[1].on_click(lambda x: self.pt.change_reset())
         func_items[2].on_click(lambda x: self._read_pos())
         
@@ -147,3 +145,42 @@ class CamPanTilt():
     
     def snap_box(self):
         return self.snap_count
+    
+    def play(self):
+        slider = self.sliders()
+        pos = self.pos_box()
+        panel_dir = self.panel_dir()
+        panel_func = self.panel_func()
+        snap_box = self.snap_box()
+        return VBox([HBox([panel_func, slider]), panel_dir, HBox([pos, snap_box])])
+    
+    def joystick_setup(self, index=0, display=False):
+        self.controller = widgets.Controller(index=index)
+        display(self.controller) if display==True else print("Now, move your Joystick a bit to activiate...")
+        
+    def joystick_on(self): # Linking js to pantilt movement control
+        self.controller.buttons[12].observe(lambda x: self.pt.go_up()) # Up
+        self.controller.buttons[13].observe(lambda x: self.pt.go_down()) # Down
+        self.controller.buttons[14].observe(lambda x: self.pt.go_left()) # Left
+        self.controller.buttons[15].observe(lambda x: self.pt.go_right()) # Right
+        self.controller.buttons[3].observe(lambda x: self.pt.far_up()) # Far Up
+        self.controller.buttons[0].observe(lambda x: self.pt.far_down()) # Far Down
+        self.controller.buttons[2].observe(lambda x: self.pt.far_left()) # Far Left
+        self.controller.buttons[1].observe(lambda x: self.pt.far_right()) # Far Right
+        self.controller.buttons[8].observe(lambda x: self.pt.reset())
+        self.controller.buttons[9].observe(lambda x: self.pt.change_reset())
+        self.controller.buttons[5].observe(lambda x: self.save_snap())
+
+    def joystick_off(self): # Unlinking js to pantilt movement control
+        pass
+#         self.controller.buttons[12].unobserve(lambda x: self.pt.go_up()) # Up
+#         self.controller.buttons[13].unobserve(lambda x: self.pt.go_down()) # Down
+#         self.controller.buttons[14].unobserve(lambda x: self.pt.go_left()) # Left
+#         self.controller.buttons[15].unobserve(lambda x: self.pt.go_right()) # Right
+#         self.controller.buttons[3].unobserve(lambda x: self.pt.far_up()) # Far Up
+#         self.controller.buttons[0].unobserve(lambda x: self.pt.far_down()) # Far Down
+#         self.controller.buttons[2].unobserve(lambda x: self.pt.far_left()) # Far Left
+#         self.controller.buttons[1].unobserve(lambda x: self.pt.far_right()) # Far Right
+#         self.controller.buttons[8].unobserve(lambda x: self.pt.reset())
+#         self.controller.buttons[9].unobserve(lambda x: self.pt.change_reset())
+#         self.controller.buttons[5].unobserve(lambda x: self.save_snap())
