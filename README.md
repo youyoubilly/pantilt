@@ -101,5 +101,15 @@ Sorry that I may have some typos or inaccurate expression in English, help me to
 
 Enjoy!
 
+# Useful Links
+- Project: [billiocar](https://github.com/youyoubilly/billiocar) \
+Let's learn and play an robotic car with AI technology
+
+- Project: [pantilt](https://github.com/youyoubilly/pantilt) \
+This is a tool kit for controlling two servos at a pan tilt in jupyter notebook.
+
+- Project: [bcam](https://github.com/youyoubilly/bcam) \
+bcam is an easy to use Python camera interface for NVIDIA Jetson and Raspberry Pi.
+
 Billy Wang \
 BillioTech Team
