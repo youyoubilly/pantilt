@@ -12,7 +12,7 @@ class Servo():
         self.min_angle = min_angle
         self.angle = int((max_angle + min_angle)/2)
         self.reset_angle = int((max_angle + min_angle)/2)
-        self.unit = 10
+        self.unit = 2
        
     def to_angle(self, angle):
         if angle < self.min_angle:
