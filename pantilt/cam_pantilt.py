@@ -3,7 +3,7 @@ import ipywidgets.widgets as widgets
 import time
 import numpy as np
 
-from bcam.bcam import Camera, frame_dp, bgr8_to_jpeg
+from bcamtest.bcam import Camera, frame_dp, bgr8_to_jpeg
 from pantilt.pantilt.pantilt import PanTilt
 import ipywidgets.widgets as widgets
 from ipywidgets import Button, HBox, VBox
@@ -11,9 +11,9 @@ import os
 
 class CamPanTilt():
     def __init__(self):
-        self.pt = PanTilt(bus=0)
-        self.pt.add_rl_servo(channel=14, max_angle=180, min_angle=0)
-        self.pt.add_ud_servo(channel=15, max_angle=180, min_angle=0)
+        self.pt = PanTilt(bus=1)
+        self.pt.add_rl_servo(channel=13, max_angle=180, min_angle=0)
+        self.pt.add_ud_servo(channel=12, max_angle=180, min_angle=0)
         self.width_dp = 320
         self.height_dp = 240
         self.image_widget = widgets.Image(format='jpeg', width=self.width_dp, height=self.height_dp)

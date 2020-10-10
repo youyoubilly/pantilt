@@ -3,9 +3,8 @@ import time
 import Adafruit_PCA9685
 
 class Servo():
-    def __init__(self, channel, bus=0, max_angle=180, min_angle=0):
-        self.bus = bus
-        self.pwm = Adafruit_PCA9685.PCA9685(busnum=self.bus)
+    def __init__(self, channel, bus=1, max_angle=180, min_angle=0):
+        self.pwm = Adafruit_PCA9685.PCA9685(address=0x40, busnum=bus)
         self.pwm.set_pwm_freq(50)
         self.channel = channel
         self.max_angle = max_angle
@@ -59,7 +58,7 @@ class Servo():
         return self.angle
         
 class PanTilt():
-    def __init__(self, bus=0):
+    def __init__(self, bus=1):
         self.bus = bus
         
     def add_rl_servo(self, channel, max_angle=180, min_angle=0):
