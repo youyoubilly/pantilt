@@ -4,7 +4,7 @@ import time
 import numpy as np
 
 from bcam.bcam import Camera, frame_dp, bgr8_to_jpeg
-from pantilt.pantilt import PanTilt
+from pantilt.pantilt.pantilt import PanTilt
 import ipywidgets.widgets as widgets
 from ipywidgets import Button, HBox, VBox
 import os
@@ -25,6 +25,7 @@ class CamPanTilt():
         self.snap_dir = 'snap'
         self.camera_link = None
         self.controller = None
+        self.press_count = 0
         
     def cam(self, width_cap=800, height_cap=600, fps_cap=2, flip=2):
         camera = Camera(width=width_cap, height=height_cap, fps=fps_cap, is_usb=False, flip=flip)
@@ -52,6 +53,22 @@ class CamPanTilt():
     def _ud_move2(self, change):
         val = change['new']
         self.pt.to_angle(ud=val)
+        
+    def _sider_to_left(self, val):
+        return self.pt.rl.max_angle * val - (val - 1) * (self.pt.rl.max_angle - self.pt.rl.min_angle) / 2
+    
+    def _sider_to_right(self, val):
+        return self.pt.rl.min_angle * val - (val - 1) * (self.pt.rl.max_angle - self.pt.rl.min_angle) / 2
+    
+    def _sider_left_cam(self, change):
+        val = change['new']
+        if self.controller.buttons[7].value == 0:
+            self.pt.to_angle(rl=self._sider_to_left(val=val))
+
+    def _sider_right_cam(self, change):
+        val = change['new']
+        if self.controller.buttons[6].value == 0:
+            self.pt.to_angle(rl=self._sider_to_right(val=val))
     
     def pos_box(self):
         self.rl_textbox.observe(self._rl_move2, names=['value'])
@@ -158,29 +175,31 @@ class CamPanTilt():
         self.controller = widgets.Controller(index=index)
         display(self.controller) if display==True else print("Now, move your Joystick a bit to activiate...")
         
-    def joystick_on(self): # Linking js to pantilt movement control
-        self.controller.buttons[12].observe(lambda x: self.pt.go_up()) # Up
-        self.controller.buttons[13].observe(lambda x: self.pt.go_down()) # Down
-        self.controller.buttons[14].observe(lambda x: self.pt.go_left()) # Left
-        self.controller.buttons[15].observe(lambda x: self.pt.go_right()) # Right
-        self.controller.buttons[3].observe(lambda x: self.pt.far_up()) # Far Up
-        self.controller.buttons[0].observe(lambda x: self.pt.far_down()) # Far Down
-        self.controller.buttons[2].observe(lambda x: self.pt.far_left()) # Far Left
-        self.controller.buttons[1].observe(lambda x: self.pt.far_right()) # Far Right
-        self.controller.buttons[8].observe(lambda x: self.pt.reset())
-        self.controller.buttons[9].observe(lambda x: self.pt.change_reset())
-        self.controller.buttons[5].observe(lambda x: self.save_snap())
+    def joystick_on(self): # Linking js to pantilt movement control        
+        self.controller.buttons[3].observe(lambda x: self._press_act(event="go_up")) # Far Up
+        self.controller.buttons[0].observe(lambda x: self._press_act(event="go_down")) # Far Down
+        self.controller.buttons[2].observe(lambda x: self._press_act(event="go_left")) # Far Left
+        self.controller.buttons[1].observe(lambda x: self._press_act(event="go_right")) # Far Right
+        
+        self.controller.buttons[9].observe(lambda x: self.pt.reset())
+        self.controller.buttons[8].observe(lambda x: self.pt.change_reset())
+        self.controller.buttons[17].observe(lambda x: self.save_snap())
+        
+        self.controller.buttons[6].observe(self._sider_left_cam, names=['value']) # Sliding cam to left
+        self.controller.buttons[7].observe(self._sider_right_cam, names=['value']) # Sliding cam to right
+        
+    def _press_act(self, event):
+        self.press_count += 1
+        if self.press_count > 7:
+            if event == "go_up":
+                self.pt.go_up()
+            elif event == "go_down":
+                self.pt.go_down()
+            elif event == "go_left":
+                self.pt.go_left()
+            elif event == "go_right":
+                self.pt.go_right()
+            self.press_count = 0
 
     def joystick_off(self): # Unlinking js to pantilt movement control
         pass
-#         self.controller.buttons[12].unobserve(lambda x: self.pt.go_up()) # Up
-#         self.controller.buttons[13].unobserve(lambda x: self.pt.go_down()) # Down
-#         self.controller.buttons[14].unobserve(lambda x: self.pt.go_left()) # Left
-#         self.controller.buttons[15].unobserve(lambda x: self.pt.go_right()) # Right
-#         self.controller.buttons[3].unobserve(lambda x: self.pt.far_up()) # Far Up
-#         self.controller.buttons[0].unobserve(lambda x: self.pt.far_down()) # Far Down
-#         self.controller.buttons[2].unobserve(lambda x: self.pt.far_left()) # Far Left
-#         self.controller.buttons[1].unobserve(lambda x: self.pt.far_right()) # Far Right
-#         self.controller.buttons[8].unobserve(lambda x: self.pt.reset())
-#         self.controller.buttons[9].unobserve(lambda x: self.pt.change_reset())
-#         self.controller.buttons[5].unobserve(lambda x: self.save_snap())
