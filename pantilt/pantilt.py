@@ -3,7 +3,6 @@ import ipywidgets.widgets as widgets
 import time
 import numpy as np
 
-# from bcamtest.bcam import Camera, frame_dp, bgr8_to_jpeg
 import bcam
 from bcam.utils import bgr8_to_jpeg
 from .servo import ServoGroup
@@ -16,12 +15,13 @@ class PanTilt():
         self.sg = ServoGroup(bus=bus)
         self.sg.add_rl_servo(channel=12, max_angle=180, min_angle=0)
         self.sg.add_ud_servo(channel=13, max_angle=180, min_angle=0)
-        self.width_dp = 320
-        self.height_dp = 240
-        self.image_widget = widgets.Image(format='jpeg', width=self.width_dp, height=self.height_dp)
+        #Setup various widgets
+        self.panel_step_move = NineButton(button_list=['↖', '↑', '↗', '←', 'reset', '→', '↙', '↓', '↘'])
+        self.panel_far_move = NineButton(button_list=['◤', '▲', '◥', '◄', 'reset', '►', '◣', '▼', '◢'])
+        self.image_widget = widgets.Image(format='jpeg', width=400, height=300)
         self.snap_count = widgets.IntText(description='count:', layout=widgets.Layout(width='140px'), value=0)
-        self.rl_textbox = widgets.IntText(layout=widgets.Layout(width='148px'), value=self.sg.read()[0], description='rl:')
-        self.ud_textbox = widgets.IntText(layout=widgets.Layout(width='148px'), value=self.sg.read()[1], description='ud:')
+        self.rl_textbox = widgets.IntText(layout=widgets.Layout(width='140px'), value=self.sg.read()[0], description='rl:')
+        self.ud_textbox = widgets.IntText(layout=widgets.Layout(width='140px'), value=self.sg.read()[1], description='ud:')
         self.rl_slider = widgets.FloatSlider(min=-1, max=1, value=0, step=0.02, description='rl')
         self.ud_slider = widgets.FloatSlider(min=-1, max=1, value=0, step=0.02, description='ud')
         self.snap_dir = 'snap'
@@ -29,8 +29,20 @@ class PanTilt():
         self.controller = None
         self.press_count = 0
         
-    def cam(self, cam_type=bcam.JETSON_CAM, width_cap=800, height_cap=600, fps_cap=2, flip=0):
-        camera = bcam.config(cam_type=cam_type).resolution(width_cap, height_cap).rotate_180().fps(2).build()
+    def play(self, width_cap=400, height_cap=300, fps=6, flip=0):
+        self._setting_step_move()
+        self._setting_far_move()
+        slider = self.sliders()
+        pos = self.pos_box()
+        panel_func = self.panel_func()
+        snap_box = self.snap_box()
+        cam = self.cam(width_cap=width_cap, height_cap=height_cap, fps=fps, flip=flip)
+        dpA = VBox([self.panel_step_move.display(), self.panel_far_move.display(), panel_func])
+        dpB = VBox([slider, pos, snap_box])
+        return HBox([cam, dpA, dpB])
+        
+    def cam(self, cam_type=bcam.JETSON_CAM, width_cap=800, height_cap=600, fps=2, flip=0):
+        camera = bcam.config(cam_type=cam_type).resolution(width_cap, height_cap).fps(fps).flip(flip).build()
         camera.start()
         self.camera_link = traitlets.dlink((camera, 'value'), (self.image_widget, 'value'), transform=bgr8_to_jpeg)
         return self.image_widget
@@ -82,55 +94,6 @@ class PanTilt():
         self.rl_slider.observe(self._rl_move1, names=['value'])
         self.ud_slider.observe(self._ud_move1, names=['value'])
         return VBox([self.rl_slider, self.ud_slider])
-
-    def panel_dir(self):
-        button_layout = widgets.Layout(width='100px', height='80px', align_self='center')
-
-        step_move = ['↖', '↑', '↗', '←', 'reset', '→', '↙', '↓', '↘']
-        step_items = [Button(description=i, layout=button_layout) for i in step_move]
-
-        far_move = ['◤', '▲', '◥', '◄', 'reset', '►', '◣', '▼', '◢']
-        far_items = [Button(description=i, layout=button_layout) for i in far_move]
-
-        #'success', 'info', 'warning', 'danger' or ''
-        #step_items[4].button_style='info'
-        #far_items[4].button_style='info'
-
-        row1 = HBox([step_items[0], step_items[1], step_items[2]])
-        row2 = HBox([step_items[3], step_items[4], step_items[5]])
-        row3 = HBox([step_items[6], step_items[7], step_items[8]])
-        com_a = VBox([row1, row2, row3])
-
-        row4 = HBox([far_items[0], far_items[1], far_items[2]])
-        row5 = HBox([far_items[3], far_items[4], far_items[5]])
-        row6 = HBox([far_items[6], far_items[7], far_items[8]])
-        com_b = VBox([row4, row5, row6])
-        
-        #step: '↖', '↑', '↗', '←', 'reset', '→', '↙', '↓', '↘'
-        step_items[0].on_click(lambda x: self.sg.go_up_left())
-        step_items[1].on_click(lambda x: self.sg.go_up())
-        step_items[2].on_click(lambda x: self.sg.go_up_right())
-        step_items[3].on_click(lambda x: self.sg.go_left())
-        step_items[4].on_click(lambda x: self.sg.reset())
-        step_items[5].on_click(lambda x: self.sg.go_right())
-        step_items[6].on_click(lambda x: self.sg.go_down_left())
-        step_items[7].on_click(lambda x: self.sg.go_down() )
-        step_items[8].on_click(lambda x: self.sg.go_down_right())
-
-        #far: '◤', '▲', '◥', '◄', 'reset', '►', '◣', '▼', '◢'
-        far_items[0].on_click(lambda x: self.sg.upper_left())
-        far_items[1].on_click(lambda x: self.sg.far_up())
-        far_items[2].on_click(lambda x: self.sg.upper_right())
-        far_items[3].on_click(lambda x: self.sg.far_left())
-        far_items[4].on_click(lambda x: self.sg.reset())
-        far_items[5].on_click(lambda x: self.sg.far_right())
-        far_items[6].on_click(lambda x: self.sg.lower_left())
-        far_items[7].on_click(lambda x: self.sg.far_down() )
-        far_items[8].on_click(lambda x: self.sg.lower_right())
-        
-        widgets_set1 = HBox([com_a, com_b])
-        
-        return HBox([com_a, com_b])
         
     def save_snap(self):
         try:
@@ -148,9 +111,9 @@ class PanTilt():
         self.ud_textbox.value = self.sg.read()[1]
         
     def panel_func(self):
-        button_layout = widgets.Layout(width='100px', height='80px', align_self='center')
+        button_layout = widgets.Layout(width='60px', height='40px', align_self='center')
 
-        func_act = ['snapshot', 'save reset', 'position']
+        func_act = ['snap', 'set', 'pos']
         func_items = [Button(description=i, layout=button_layout) for i in func_act]
 
         func_items[0].button_style='warning'
@@ -165,15 +128,7 @@ class PanTilt():
     
     def snap_box(self):
         return self.snap_count
-    
-    def play(self):
-        slider = self.sliders()
-        pos = self.pos_box()
-        panel_dir = self.panel_dir()
-        panel_func = self.panel_func()
-        snap_box = self.snap_box()
-        return VBox([HBox([panel_func, slider]), panel_dir, HBox([pos, snap_box])])
-    
+
     def joystick_setup(self, index=0, display=False):
         self.controller = widgets.Controller(index=index)
         display(self.controller) if display==True else print("Now, move your Joystick a bit to activiate...")
@@ -206,3 +161,39 @@ class PanTilt():
 
     def joystick_off(self): # Unlinking js to pantilt movement control
         pass
+    
+    def _setting_step_move(self):
+        #step: '↖', '↑', '↗', '←', 'reset', '→', '↙', '↓', '↘'
+        self.panel_step_move.buttons[0].on_click(lambda x: self.sg.go_up_left())
+        self.panel_step_move.buttons[1].on_click(lambda x: self.sg.go_up())
+        self.panel_step_move.buttons[2].on_click(lambda x: self.sg.go_up_right())
+        self.panel_step_move.buttons[3].on_click(lambda x: self.sg.go_left())
+        self.panel_step_move.buttons[4].on_click(lambda x: self.sg.reset())
+        self.panel_step_move.buttons[5].on_click(lambda x: self.sg.go_right())
+        self.panel_step_move.buttons[6].on_click(lambda x: self.sg.go_down_left())
+        self.panel_step_move.buttons[7].on_click(lambda x: self.sg.go_down() )
+        self.panel_step_move.buttons[8].on_click(lambda x: self.sg.go_down_right())
+    
+    def _setting_far_move(self):
+        #far: '◤', '▲', '◥', '◄', 'reset', '►', '◣', '▼', '◢'
+        self.panel_far_move.buttons[0].on_click(lambda x: self.sg.upper_left())
+        self.panel_far_move.buttons[1].on_click(lambda x: self.sg.far_up())
+        self.panel_far_move.buttons[2].on_click(lambda x: self.sg.upper_right())
+        self.panel_far_move.buttons[3].on_click(lambda x: self.sg.far_left())
+        self.panel_far_move.buttons[4].on_click(lambda x: self.sg.reset())
+        self.panel_far_move.buttons[5].on_click(lambda x: self.sg.far_right())
+        self.panel_far_move.buttons[6].on_click(lambda x: self.sg.lower_left())
+        self.panel_far_move.buttons[7].on_click(lambda x: self.sg.far_down() )
+        self.panel_far_move.buttons[8].on_click(lambda x: self.sg.lower_right())
+    
+class NineButton():
+    def __init__(self, button_list=None):
+        self.button_layout = widgets.Layout(width='60px', height='40px', align_self='center')
+        self.button_list = ['Fwd', '▲', 'sL', '◄', 'Stop', '►', 'Bwd', '▼', 'sR'] if button_list==None else button_list
+        self.buttons = [Button(description=i, layout=self.button_layout) for i in self.button_list]
+        
+    def display(self):
+        row1 = HBox([self.buttons[0], self.buttons[1], self.buttons[2]])
+        row2 = HBox([self.buttons[3], self.buttons[4], self.buttons[5]])
+        row3 = HBox([self.buttons[6], self.buttons[7], self.buttons[8]])
+        return VBox([row1, row2, row3])
