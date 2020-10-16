@@ -15,8 +15,8 @@ pwm = Adafruit_PCA9685.PCA9685(busnum=set_bus)
 # for example, pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
 
 def set_servo_angle(channel,angle):
-    date=4096*((angle*11)+500)/20000 + 0.5
-    pwm.set_pwm(channel,0,int(date))
+    freq=4096*((angle*11)+500)/20000 + 0.5
+    pwm.set_pwm(channel,0,int(freq))
 
 pwm.set_pwm_freq(50)
 

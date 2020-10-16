@@ -3,50 +3,51 @@ import time
 import Adafruit_PCA9685
 
 class Servo():
-    def __init__(self, channel, bus=1, max_angle=180, min_angle=0):
+    def __init__(self, channel, bus=1, lower=0, upper=180, spec=180):
         self.pwm = Adafruit_PCA9685.PCA9685(address=0x40, busnum=bus)
         self.pwm.set_pwm_freq(50)
         self.channel = channel
-        self.max_angle = max_angle
-        self.min_angle = min_angle
-        self.angle = int((max_angle + min_angle)/2)
-        self.reset_angle = int((max_angle + min_angle)/2)
+        self.upper, self.lower = upper, lower
+        self.spec = spec #max_angleium angle as its Specification
+        self.mid_angle = int((self.upper + self.lower)/2)
+        self.angle = self.mid_angle #Set the middle value as initial angle
+        self.reset_angle = self.mid_angle #Set the middle value as reset angle
         self.unit = 2
        
     def to_angle(self, angle):
-        if angle < self.min_angle:
-            self.angle = self.min_angle
-        elif angle > self.max_angle:
-            self.angle = self.max_angle
+        if angle < self.lower:
+            self.angle = self.lower
+        elif angle > self.upper:
+            self.angle = self.upper
         else:
             self.angle = angle
-        data=4096*((angle*180/self.max_angle*11)+500)/20000+0.5
-        self.pwm.set_pwm(self.channel, 0, round(data))
+        freq=4096*((self.angle*11)+500)/20000+0.5
+        self.pwm.set_pwm(self.channel, 0, round(freq))
            
     def reset(self):
         self.to_angle(angle=self.reset_angle)
     
     def add(self, t=1):
         for i in range(0, t):
-            if self.angle + self.unit <= self.max_angle:
+            if self.angle + self.unit <= self.upper:
                 self.angle = self.angle + self.unit
             else:
-                self.angle=self.max_angle
+                self.angle=self.upper
             self.to_angle(angle=self.angle)
 
     def sub(self, t=1):
         for i in range(0, t):
-            if self.angle - self.unit >= self.min_angle:
+            if self.angle - self.unit >= self.lower:
                 self.angle=self.angle - self.unit
             else:
-                self.angle=self.min_angle
+                self.angle=self.lower
             self.to_angle(angle=self.angle)
 
     def to_max(self):
-        self.to_angle(angle=self.max_angle)
+        self.to_angle(angle=self.upper)
         
     def to_min(self):
-        self.to_angle(angle=self.min_angle)
+        self.to_angle(angle=self.lower)
         
     def change_unit(self, unit):
         self.unit = unit
@@ -58,15 +59,11 @@ class Servo():
         return self.angle
         
 class ServoGroup():
-    def __init__(self, bus=1):
+    def __init__(self, rl_ch, ud_ch, bus=1):
         self.bus = bus
-        
-    def add_rl_servo(self, channel, max_angle=180, min_angle=0):
-        self.rl = Servo(channel=channel, bus=self.bus, max_angle=max_angle, min_angle=min_angle)
-        
-    def add_ud_servo(self, channel, max_angle=180, min_angle=0):
-        self.ud = Servo(channel=channel, bus=self.bus, max_angle=max_angle, min_angle=min_angle)
-        
+        self.rl = Servo(channel=rl_ch, bus=bus, lower=0, upper=180, spec=180)
+        self.ud = Servo(channel=ud_ch, bus=bus, lower=0, upper=180, spec=180)
+
     def to_angle(self, rl=None, ud=None):
         self._nothing if rl==None else self.rl.to_angle(rl)
         self._nothing if ud==None else self.ud.to_angle(ud)
@@ -105,19 +102,19 @@ class ServoGroup():
         
     def far_left(self):
         self.rl.to_max()
-        self.ud.to_angle(int((self.ud.max_angle + self.ud.min_angle)/2))
+        self.ud.to_angle(self.ud.mid_angle)
 
     def far_right(self):
         self.rl.to_min()
-        self.ud.to_angle(int((self.ud.max_angle + self.ud.min_angle)/2))
+        self.ud.to_angle(self.ud.mid_angle)
 
     def far_up(self):
         self.ud.to_min()
-        self.rl.to_angle(int((self.rl.max_angle + self.rl.min_angle)/2))
+        self.rl.to_angle(self.rl.mid_angle)
         
     def far_down(self):
         self.ud.to_max()
-        self.rl.to_angle(int((self.rl.max_angle + self.rl.min_angle)/2))
+        self.rl.to_angle(self.rl.mid_angle)
 
     def upper_left(self):
         self.ud.to_min()
