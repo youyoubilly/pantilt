@@ -90,12 +90,12 @@ class PanTilt():
         
         return HBox([func_items[0], func_items[1], func_items[2]])
     
-    def joystick_setup(self, index=0, display=False):
+    def controller_setup(self, index=0, dp=False):
         self.controller = widgets.Controller(index=index)
-        print(self.controller)
-        display(self.controller) if display==True else print("Now, move your Joystick a bit to activiate...")
+        print("Move your controller NOW and activiate it...")
+        display(self.controller)
         
-    def joystick_on(self): # Linking js to pantilt movement control        
+    def controller_on(self): # Linking js to pantilt movement control        
         self.controller.buttons[3].observe(lambda x: self._press_act(event="go_up")) # Far Up
         self.controller.buttons[0].observe(lambda x: self._press_act(event="go_down")) # Far Down
         self.controller.buttons[2].observe(lambda x: self._press_act(event="go_left")) # Far Left
@@ -133,10 +133,10 @@ class PanTilt():
         self.panel_far_move.buttons[8].on_click(lambda x: self.sg.lower_right())
         
     def _rl_val(self, val):
-        return int((val * (self.sg.rl.max_angle - self.sg.rl.min_angle) + self.sg.rl.max_angle + self.sg.rl.min_angle) / 2)
+        return int((val * (self.sg.rl.upper - self.sg.rl.lower) + self.sg.rl.upper + self.sg.rl.lower) / 2)
     
     def _ud_val(self, val):
-        return int((val * (self.sg.rl.max_angle - self.sg.rl.min_angle) + self.sg.rl.max_angle + self.sg.rl.min_angle) / 2)
+        return int((val * (self.sg.rl.upper - self.sg.rl.lower) + self.sg.rl.upper + self.sg.rl.lower) / 2)
 
     def _rl_move1(self, change):
         val = change['new']
@@ -155,10 +155,10 @@ class PanTilt():
         self.sg.to_angle(ud=val)
         
     def _sider_to_left(self, val):
-        return self.sg.rl.max_angle * val - (val - 1) * (self.sg.rl.max_angle - self.sg.rl.min_angle) / 2
+        return self.sg.rl.upper * val - (val - 1) * (self.sg.rl.upper - self.sg.rl.lower) / 2
     
     def _sider_to_right(self, val):
-        return self.sg.rl.min_angle * val - (val - 1) * (self.sg.rl.max_angle - self.sg.rl.min_angle) / 2
+        return self.sg.rl.lower * val - (val - 1) * (self.sg.rl.upper - self.sg.rl.lower) / 2
     
     def _sider_left_cam(self, change):
         val = change['new']
