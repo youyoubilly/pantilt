@@ -92,8 +92,12 @@ class PanTilt():
     
     def controller_setup(self, index=0, dp=False):
         self.controller = widgets.Controller(index=index)
-        print("Move your controller NOW and activiate it...")
-        display(self.controller)
+        if self.controller == None:
+            print("Move your controller NOW and activiate it...")
+            display(self.controller)
+        else:
+            if dp == True:
+                display(self.controller)
         
     def controller_on(self): # Linking js to pantilt movement control        
         self.controller.buttons[3].observe(lambda x: self._press_act(event="go_up")) # Far Up
