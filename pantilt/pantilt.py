@@ -25,7 +25,6 @@ class PanTilt():
         self.ud_slider = widgets.FloatSlider(min=-1, max=1, value=0, step=0.02, description='ud')
         self.snap_dir = 'snap' #Folder name for saving snapshot
         self.camera_link = None
-        self.controller = None
         self.press_count = 0
         
     def play(self, width_cap=400, height_cap=300, fps=6, flip=0):
@@ -90,14 +89,10 @@ class PanTilt():
         
         return HBox([func_items[0], func_items[1], func_items[2]])
     
-    def controller_setup(self, index=0, dp=False):
+    def controller_setup(self, index=0):
         self.controller = widgets.Controller(index=index)
-        if self.controller == None:
-            print("Move your controller NOW and activiate it...")
-            display(self.controller)
-        else:
-            if dp == True:
-                display(self.controller)
+        print("Move your controller NOW and activiate it...")
+        display(self.controller)
         
     def controller_on(self): # Linking js to pantilt movement control        
         self.controller.buttons[3].observe(lambda x: self._press_act(event="go_up")) # Far Up
