@@ -101,7 +101,7 @@ class PanTilt():
         self.controller.buttons[1].observe(lambda x: self._press_act(event="go_right")) # Far Right
         
         self.controller.buttons[9].observe(lambda x: self.sg.reset())
-        self.controller.buttons[8].observe(lambda x: self.sg.change_reset())
+#         self.controller.buttons[8].observe(lambda x: self.sg.change_reset())
         self.controller.buttons[17].observe(lambda x: self.save_snap())
         
         self.controller.buttons[6].observe(self._sider_left_cam, names=['value']) # Sliding cam to left
