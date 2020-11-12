@@ -13,6 +13,7 @@ class Servo():
         self.angle = self.mid_angle #Set the middle value as initial angle
         self.reset_angle = self.mid_angle #Set the middle value as reset angle
         self.unit = 2
+        self.to_angle(self.reset_angle)
        
     def to_angle(self, angle):
         if angle < self.lower:
@@ -21,7 +22,7 @@ class Servo():
             self.angle = self.upper
         else:
             self.angle = angle
-        freq=4096*((self.angle*11)+500)/20000+0.5
+        freq=4096*((self.angle/self.spec*180*11)+500)/20000+0.5
         self.pwm.set_pwm(self.channel, 0, round(freq))
            
     def reset(self):
